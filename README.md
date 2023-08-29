@@ -29,7 +29,7 @@ Currently I am using free tier AWS based mongodb database
     		"password":"krish"
 		}
 		
-	b. POST: <url>/authenticate: This will return a JWT token in response
+	b. POST: <url>/authenticate: This will return a JWT token in response. All subsequent requests must contain the JWT token in request.
 		{
     		"username":"krishna",
     		"password":"krish"
@@ -41,5 +41,9 @@ Currently I am using free tier AWS based mongodb database
 		key=title, value={string name of file}
 		key=image, value={actual image file}			//remember to change the key type to file
 	
-	e. GET: <url>//imageFiles/{id}
-		Development in progress
+	e. GET: <url>/imageFiles/{id}: Test if files are fetched from mongodb and sent as download-able file.
+		Once you receive the response, save it as file to check the file content.
+		example url: localhost:8080/imageFileAsBytes/64ee202f8b1a110afdcf9b02
+	f. POST: <url>/zipImageFiles: Send fileId list as comma seperated string in body request param that you want to download.
+		key=fileIdList, value={64ee202f8b1a110afdcf9b02,64ee20a18b1a110afdcf9b05}
+	
