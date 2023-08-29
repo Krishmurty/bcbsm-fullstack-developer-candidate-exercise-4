@@ -8,47 +8,72 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public class UserDao {
-  @Id
-  private String id;
+	@Id
+	private String id;
 
-  @NotBlank
-  @Size(max = 20)
-  private String username;
+	@NotBlank
+	@Size(max = 20)
+	private String username;
 
-  @NotBlank
-  @Size(max = 120)
-  private String password;
+	@NotBlank
+	@Size(max = 120)
+	private String password;
 
-  public UserDao() {
-  }
+	//@NotBlank
+	@Size(max = 30)
+	private String firstName;
 
-  public UserDao(String username,  String password) {
-    this.username = username;
-    this.password = password;
-  }
+	//@NotBlank
+	@Size(max = 30)
+	private String lastName;
 
-  public String getId() {
-    return id;
-  }
+	public UserDao() {
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public UserDao(String username,  String password, String firstName, String lastName) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-  public String getUsername() {
-    return username;
-  }
+	public String getId() {
+		return id;
+	}
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-  public String getPassword() {
-    return password;
-  }
+	public String getUsername() {
+		return username;
+	}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 }

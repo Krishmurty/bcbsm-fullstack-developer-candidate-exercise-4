@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import com.krish.bcbs.config.JwtTokenUtil;
 import com.krish.bcbs.model.JwtRequest;
 import com.krish.bcbs.model.JwtResponse;
+import com.krish.bcbs.model.UserDao;
 import com.krish.bcbs.model.UserDto;
 import com.krish.bcbs.service.JwtUserDetailsService;
 
@@ -29,15 +30,16 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		//final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDto userdet = userDetailsService.getUserByUsername(authenticationRequest.getUsername());
+		final String token = jwtTokenUtil.generateToken(userdet.getFirstName());
 
-		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
+		//return ResponseEntity.ok(new JwtResponse(token,userDetails.getUsername()));
+		return ResponseEntity.ok(new JwtResponse(token,userdet.getUsername(),userdet.getFirstName(),userdet.getLastName()));
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
